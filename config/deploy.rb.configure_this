@@ -1,0 +1,28 @@
+require 'bundler/capistrano'
+require 'intercity/capistrano'
+require 'sidekiq/capistrano'
+
+set :application, "gitlab_production"
+set :repository,  "https://github.com/gitlabhq/gitlabhq.git"
+set :branch, "5-4-stable"
+
+set :deploy_via, :remote_cache
+set :scm, :git
+set :user, "git"
+set :bundle_without, [:development, :test, :puma, :postgres, :aws]
+
+server "<server host>", :web, :app, :db, :primary => true
+
+set :sidekiq_cmd, "#{try_sudo} bundle exec sidekiq -q post_receive,mailer,system_hook,project_web_hook,gitlab_shell,common,default"
+
+after "deploy:restart", "deploy:cleanup"
+
+after "deploy:finalize_update", "gitlab:link"
+
+namespace :gitlab do
+
+  task :link do
+    run "#{try_sudo} ln -nfs #{shared_path}/config/gitlab.yml #{release_path}/config/gitlab.yml"
+  end
+
+end
