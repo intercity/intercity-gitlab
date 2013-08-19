@@ -32,6 +32,13 @@ end
 
 namespace :gitlab do
 
+  desc "Install gitshell and configure gitlab."
+  task :prepare do
+    gitshell.install
+    gitlab.configure
+  end
+
+  desc "Upload gitlab.yml and create gitlabl satellites directory."
   task :configure do
     upload "gitlab.yml", "/u/apps/#{application}/shared/config"
     run "cd /home/git && mkdir -p gitlab-satellites"
@@ -41,6 +48,7 @@ namespace :gitlab do
     run "#{try_sudo} ln -nfs #{shared_path}/config/gitlab.yml #{release_path}/config/gitlab.yml"
   end
 
+  desc "Executes bundle exec  rake gitlab:setup."
   task :setup do
     run "cd #{current_path} && bundle exec rake gitlab:setup RAILS_ENV=production force=yes"
   end

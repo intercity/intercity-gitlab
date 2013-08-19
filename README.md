@@ -1,44 +1,38 @@
 Deploy GitLab using Capistrano
 ==============================
 
-This project aims at providing a standard Capistrano configuration template to boostrap and configure GitLab on your own server.
+This project aims at providing a standard Capistrano configuration template to boostrap and configure GitLab on your own server (Ubuntu)
 
 ## Prerequisites
 
 * The server is bootstrapped using [locomotive-chef-repo](https://github.com/firmhouse/locomotive-chef-repo) or [Intercity](http://intercityup.com).
 * The server is configured to have a `gitlab_production` application using a `deploy_user` called `git`.
-* You need to `apt-get install libicu-dev`
+* You need to `apt-get install libicu-dev` on your server.
 
 ## Getting started and configuration
 
-First, modify your server URL where you would like to host GitLab in `config/deploy.rb`. Replace `<server host>` with the hostname you want to install GitLab. We normally set up a `git.yourhost.com` subdomain for hosting GitLab.
-
-Then, rename the `config/deploy.rb` file to `config/deploy.rb`.
-
-Configure both the `gitlab-shell.yml` and `gitlab.yml` files because they will be directly uploaded to the server as configuration files.
-
-Now run
+First, start by cloning this repo.
 
 ```
-bundle install
-```
-
-to install the command line tools you need to run this project.
-
-## Installing GitLab
-
-First run
+$ git clone git@github.com:intercity/intercity-gitlab.git
+$ cd intercity-gitlab
 
 ```
-cap gitshell:install
-```
 
-which will install gitlab-shell on your server.
-
-Then run
+Install the dependencies using bundler.
 
 ```
-cap gitlab:configure
+$ bundle install
+```
+
+Modify your server URL where you would like to host GitLab in `config/deploy.rb`. Replace `<server host>` with the hostname you want to install GitLab. We normally set up a `git.yourhost.com` subdomain for hosting GitLab.
+
+Configure both the `gitlab-shell.yml` and `gitlab.yml` files because they will be directly uploaded to the server as configuration files using the `gitlab:configure` capistrano task.
+
+Next up is preparing your server (this will install gitshell and upload the `gitlab.yml`) 
+
+```
+$ bundle exec cap gitlab:prepare
 ```
 
 which will upload the gitlab.yml configuration file and sets up GitLab's directories.
@@ -46,7 +40,7 @@ which will upload the gitlab.yml configuration file and sets up GitLab's directo
 Now it's time to actually deploy the GitLab code and start it. All you have to do is run:
 
 ```
-cap deploy:cold
+$ bundle exec cap deploy:cold
 ```
 
 This will take some time, since this will checkout the GitLab source code and compile the assets.
@@ -54,7 +48,7 @@ This will take some time, since this will checkout the GitLab source code and co
 Finally, run
 
 ```
-cap gitlab:setup
+$ bundle exec cap gitlab:setup
 ```
 
 This will configure GitLab and create the administrator user for you. You will see the initial username and password for the administrator at the bottom of the command output:
@@ -65,3 +59,5 @@ This will configure GitLab and create the administrator user for you. You will s
 ** [out :: git.yourserver.com] login.........admin@local.host
 ** [out :: git.yourserver.com] password......5iveL!fe
 ```
+
+Happy gitlabbing! :)
