@@ -5,9 +5,9 @@ This project aims at providing a standard Capistrano configuration template to b
 
 ## Prerequisites
 
-The server is bootstrapped using [locomotive-chef-repo](https://github.com/firmhouse/locomotive-chef-repo) or [Intercity](http://intercityup.com).
-
-Within the server configuration you added a `gitlab_production` application using a `deploy_user` called `git`.
+* The server is bootstrapped using [locomotive-chef-repo](https://github.com/firmhouse/locomotive-chef-repo) or [Intercity](http://intercityup.com).
+* The server is configured to have a `gitlab_production` application using a `deploy_user` called `git`.
+* You need to `apt-get install libicu-dev`
 
 ## Getting started and configuration
 
@@ -50,3 +50,18 @@ cap deploy:cold
 ```
 
 This will take some time, since this will checkout the GitLab source code and compile the assets.
+
+Finally, run
+
+```
+cap gitlab:setup
+```
+
+This will configure GitLab and create the administrator user for you. You will see the initial username and password for the administrator at the bottom of the command output:
+
+```
+** [out :: git.yourserver.com] Administrator account created:
+** [out :: git.yourserver.com]
+** [out :: git.yourserver.com] login.........admin@local.host
+** [out :: git.yourserver.com] password......5iveL!fe
+```
