@@ -19,14 +19,30 @@ after "deploy:restart", "deploy:cleanup"
 
 after "deploy:finalize_update", "gitlab:link"
 
+namespace :gitshell do
+
+  task :install do
+    run "cd /home/git && git clone https://github.com/gitlabhq/gitlab-shell.git"
+    run "cd /home/git/gitlab-shell && git checkout v1.7.0"
+    upload "gitlab-shell.yml", "/home/git/gitlab-shell/config.yml"
+    run "cd /home/git/gitlab-shell && ./bin/install"
+  end
+
+end
+
 namespace :gitlab do
 
   task :configure do
     upload "gitlab.yml", "/u/apps/#{application}/shared/config"
+    run "cd /home/git && mkdir -p gitlab-satellites"
   end
 
   task :link do
     run "#{try_sudo} ln -nfs #{shared_path}/config/gitlab.yml #{release_path}/config/gitlab.yml"
+  end
+
+  task :setup do
+    run "cd #{current_path} && bundle exec rake gitlab:setup RAILS_ENV=production force=yes"
   end
 
 end
