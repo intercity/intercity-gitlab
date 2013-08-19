@@ -35,7 +35,7 @@ cap gitshell:install
 
 which will install gitlab-shell on your server.
 
-Run
+Then run
 
 ```
 cap gitlab:configure
