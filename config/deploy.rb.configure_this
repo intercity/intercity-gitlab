@@ -21,6 +21,10 @@ after "deploy:finalize_update", "gitlab:link"
 
 namespace :gitlab do
 
+  task :configure do
+    upload "gitlab.yml", "/u/apps/#{application}/shared/config"
+  end
+
   task :link do
     run "#{try_sudo} ln -nfs #{shared_path}/config/gitlab.yml #{release_path}/config/gitlab.yml"
   end
