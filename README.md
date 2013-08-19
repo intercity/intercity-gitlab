@@ -16,7 +16,6 @@ First, start by cloning this repo.
 ```
 $ git clone git@github.com:intercity/intercity-gitlab.git
 $ cd intercity-gitlab
-
 ```
 
 Install the dependencies using bundler.
@@ -29,7 +28,7 @@ Modify your server URL where you would like to host GitLab in `config/deploy.rb`
 
 Configure both the `gitlab-shell.yml` and `gitlab.yml` files because they will be directly uploaded to the server as configuration files using the `gitlab:configure` capistrano task.
 
-Next up is preparing your server (this will install gitshell and upload the `gitlab.yml`) 
+Next up is preparing your server (this will install gitshell and upload the `gitlab.yml`)
 
 ```
 $ bundle exec cap gitlab:prepare
