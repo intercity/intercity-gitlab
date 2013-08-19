@@ -11,7 +11,7 @@ This project aims at providing a standard Capistrano configuration template to b
 
 ## Getting started and configuration
 
-First, modify your server URL where you would like to host GitLab in `config/deploy.rb.configure_this`. Replace `<server host>` with the hostname you want to install GitLab. We normally set up a `git.yourhost.com` subdomain for hosting GitLab.
+First, modify your server URL where you would like to host GitLab in `config/deploy.rb`. Replace `<server host>` with the hostname you want to install GitLab. We normally set up a `git.yourhost.com` subdomain for hosting GitLab.
 
 Then, rename the `config/deploy.rb` file to `config/deploy.rb`.
 
