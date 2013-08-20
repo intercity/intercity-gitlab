@@ -6,7 +6,7 @@ This project aims at providing a standard Capistrano configuration template to b
 ## Prerequisites
 
 * The server is bootstrapped using [locomotive-chef-repo](https://github.com/firmhouse/locomotive-chef-repo) or [Intercity](http://intercityup.com).
-* The server is configured to have a `gitlab_production` application using a `deploy_user` called `git`.
+* The server is configured to have a `gitlab_production` application using a `deploy_user` called `git`. This is what you configure in the chef recipes or your Intercity dashboard.
 * You need to `apt-get install libicu-dev` on your server.
 
 ## Getting started and configuration
