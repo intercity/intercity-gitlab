@@ -34,15 +34,11 @@ Next up is preparing your server (this will install gitshell and upload the `git
 $ bundle exec cap gitlab:prepare
 ```
 
-which will upload the gitlab.yml configuration file and sets up GitLab's directories.
-
-Now it's time to actually deploy the GitLab code and start it. All you have to do is run:
+Now it's time to actually deploy the GitLab code and start it. All you have to do is run (This will take some time, since this will checkout the GitLab source code and compile the assets):
 
 ```
 $ bundle exec cap deploy:cold
 ```
-
-This will take some time, since this will checkout the GitLab source code and compile the assets.
 
 Finally, run
 
