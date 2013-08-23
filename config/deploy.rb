@@ -4,7 +4,7 @@ require 'sidekiq/capistrano'
 
 set :application, "gitlab_production"
 set :repository,  "https://github.com/gitlabhq/gitlabhq.git"
-set :branch, "5-4-stable"
+set :branch, "6-0-stable"
 
 set :deploy_via, :remote_cache
 set :scm, :git
@@ -51,6 +51,20 @@ namespace :gitlab do
   desc "Executes bundle exec  rake gitlab:setup."
   task :setup do
     run "cd #{current_path} && bundle exec rake gitlab:setup RAILS_ENV=production force=yes"
+  end
+
+  desc "Backs up your gitlab"
+  task :backup do
+    run "cd #{current_path} && bundle exec rake gitlab:backup:create RAILS_ENV=production"
+  end
+
+  desc "Upgrades gitlab"
+  task :upgrade do
+    run "cd #{curren_path} && bundle exec rake db:migrate RAILS_ENV=production"
+    run "cd #{curren_path} && bundle exec rake migrate_groups RAILS_ENV=production"
+    run "cd #{curren_path} && bundle exec rake migrate_global_projects RAILS_ENV=production"
+    run "cd #{curren_path} && bundle exec rake migrate_keys RAILS_ENV=production"
+    run "cd #{curren_path} && bundle exec rake migrate_inline_notes RAILS_ENV=production"
   end
 
 end
