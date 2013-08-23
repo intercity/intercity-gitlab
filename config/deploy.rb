@@ -58,13 +58,4 @@ namespace :gitlab do
     run "cd #{current_path} && bundle exec rake gitlab:backup:create RAILS_ENV=production"
   end
 
-  desc "Upgrades gitlab"
-  task :upgrade do
-    run "cd #{curren_path} && bundle exec rake db:migrate RAILS_ENV=production"
-    run "cd #{curren_path} && bundle exec rake migrate_groups RAILS_ENV=production"
-    run "cd #{curren_path} && bundle exec rake migrate_global_projects RAILS_ENV=production"
-    run "cd #{curren_path} && bundle exec rake migrate_keys RAILS_ENV=production"
-    run "cd #{curren_path} && bundle exec rake migrate_inline_notes RAILS_ENV=production"
-  end
-
 end
