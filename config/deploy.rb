@@ -4,7 +4,7 @@ require 'sidekiq/capistrano'
 
 set :application, "gitlab_production"
 set :repository,  "https://github.com/gitlabhq/gitlabhq.git"
-set :branch, "6-0-stable"
+set :branch, "6-2-stable"
 
 set :deploy_via, :remote_cache
 set :scm, :git
